@@ -53,5 +53,5 @@ Missing city name
 
 ```bash
 $ python3.5 generator.py -f cities.txt unknown
-Count not find 'unknown'
+Can not find 'unknown'
 ```
