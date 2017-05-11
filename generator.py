@@ -295,6 +295,6 @@ if __name__ == "__main__":  # pragma: no cover
 
     result = inv.find(ns.city)
     if result is None:
-        print("Count not find {!r}".format(ns.city))
+        print("Can not find {!r}".format(ns.city))
         sys.exit(2)
     print("City {!r} has a number {}".format(result[0], result[1]))
