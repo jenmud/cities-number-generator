@@ -1,3 +1,9 @@
+"""
+This is a very simple city name generator. It will load a file
+of city names, generate a number for it, and allow your to find the city
+and the number.
+"""
+
 def number_generator(name):
     """
     Number generator used for generating a unique number for a string.
@@ -14,6 +20,16 @@ def number_generator(name):
 
 
 class Leaf(object):
+    """
+    Leaf is a leaf node in the Trie tree.
+
+    :param parent: Parent leaf of for the this leaf.
+    :type parent: :class:`~.Leaf`
+    :param key: Is the index key for the leaf.
+    :type key: :class:`str`
+    :param value: Value assigned to the key.
+    :type value: value
+    """
     def __init__(self, parent=None, key=None, value=None):
         self.parent = parent
         self.key = key
@@ -21,7 +37,7 @@ class Leaf(object):
         self.is_end = False
         self.leafs = {}
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return "<{}> IsEnd: {}, Key: {}, Value: {}".format(
             self.__class__.__name__,
             self.is_end,
@@ -29,7 +45,7 @@ class Leaf(object):
             self.value,
         )
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return self.__str__()
 
 
@@ -98,7 +114,6 @@ class Trie(object):
             raise IndexError("key {!r} not found".format(key))
         self._remove(self.root, key)
         
-
     @staticmethod
     def _get(leaf, key):
         if not key:
@@ -143,6 +158,14 @@ class Trie(object):
         return Trie._find(_leaf, tail)
 
     def leafs(self, key):
+        """
+        Return all the known leafs hanging off of this leaf.
+
+        :param key: Key that you would like leafs for.
+        :type key: :class:`str`
+        :returns: Iterable of key indexes.
+        :rtype: :class:`str`
+        """
         leaf = self._find(self.root, key)
         return [each.key for each in leaf.leafs.values()]
 
@@ -163,6 +186,9 @@ class Trie(object):
 
 
 class Inventory(object):
+    """
+    Inventory for tracking city names and quering for cities.
+    """
     def __init__(self):
         self.store = Trie()
 
@@ -219,8 +245,7 @@ class Inventory(object):
         :param name: Search the inventory for the name.
         :type name: :class:`str`
         :returns: Name and number.
-        :rtype: :class:`tuple` of (:class:`str`, :class:`int`) or
-            :obj:`None`.
+        :rtype: :class:`tuple` of (:class:`str`, :class:`int`) or :obj:`None`.
         """
         try:
             num = self.store.get(name).value
@@ -240,7 +265,7 @@ class Inventory(object):
         return self.store.leafs(key)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     import argparse
     import sys
 
